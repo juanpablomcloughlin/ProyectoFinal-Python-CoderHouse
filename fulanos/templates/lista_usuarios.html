@@ -1,0 +1,28 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+  
+  <h1>Lista de usuarios</h1>
+
+  <ul>
+    
+    {% for usuario in usuarios %}
+      <li>
+        {{ usuario }}
+      </li>
+      <div style="display: flex; column-gap: 5px;">
+        <form action="{% url 'EliminaUsuario' usuario.id %}" method="post">{% csrf_token %}
+          <button type="submit">Eliminar</button>
+        </form>
+        <button>
+          <a href="{% url 'ActualizaUsuario' usuario.id %}">Editar</a>
+        </button>
+      </div>
+    {% endfor %}
+      
+  </ul>
+
+  <a href="{% url 'CreaUsuario' %}">Crea Usuario</a>
+
+
+  {% endblock contenidoQueCambia %}
