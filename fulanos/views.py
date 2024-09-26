@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Producto, Usuario, Pedido
-from .forms import UsuarioFormulario, ProductoFormulario, PedidoFormulario
+from .forms import UsuarioFormulario, ProductoFormulario, PedidoFormulario, BusquedaProductoFormulario
 from django.views.generic import ListView, CreateView
 
 # Usuario
@@ -9,13 +9,13 @@ def crear_usuario(request):
         formulario = UsuarioFormulario(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('lista_usuarios')  
+            return redirect('ListaUsuarios')  
     else:
         formulario = UsuarioFormulario()
     return render(request, 'usuario_formulario.html', {'formulario': formulario})
 
-def listar_usuarios(request):
-    usuarios = Usuario.objects.all()
+def lista_usuarios(request):
+    usuarios = Usuario.objects.all()  
     return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
 def editar_usuario(request, id):
@@ -35,12 +35,12 @@ def crear_producto(request):
         formulario = ProductoFormulario(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('lista_productos')  
+            return redirect('ListaProductos')  
     else:
         formulario = ProductoFormulario()
     return render(request, 'producto_formulario.html', {'formulario': formulario})
 
-def listar_productos(request):
+def lista_productos(request):
     productos = Producto.objects.all()
     return render(request, 'lista_productos.html', {'productos': productos})
 
@@ -66,8 +66,8 @@ def crear_pedido(request):
         formulario = PedidoFormulario()
     return render(request, 'pedido_formulario.html', {'formulario': formulario})
 
-def listar_pedidos(request):
-    pedidos = Pedido.objects.all()
+def lista_pedidos(request):
+    pedidos = Pedido.objects.all() 
     return render(request, 'lista_pedidos.html', {'pedidos': pedidos})
 
 def editar_pedido(request, id):
@@ -95,3 +95,15 @@ class UsuarioCreate(CreateView):
     template_name = 'usuario_create.html'
     fields = ['nombre', 'apellido', 'email']
     success_url = '/fulanos'
+
+def busqueda_producto(request):
+    formulario = BusquedaProductoFormulario()
+    return render(request, 'busqueda_producto.html', {'formulario': formulario})
+
+def buscar_producto(request):
+    formulario = BusquedaProductoFormulario(request.GET)
+    if formulario.is_valid():
+        nombre_producto = formulario.cleaned_data['nombre']
+        productos = Producto.objects.filter(nombre__icontains=nombre_producto)
+        return render(request, 'resultado_busqueda.html', {'productos': productos, 'nombre': nombre_producto})
+    return render(request, 'busqueda_producto.html', {'formulario': formulario})

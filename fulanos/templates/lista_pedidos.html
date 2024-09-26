@@ -1,10 +1,17 @@
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
-
 <div class="text-center text-black">
-
-  <h1>Esta es la sección de pedidos:</h1>
-  
+    <h1>Lista de Pedidos</h1>
+    <ul>
+        {% for pedido in pedidos %}
+            <li>
+                Pedido ID: {{ pedido.id }} - Producto: {{ pedido.producto.nombre }} - Cantidad: {{ pedido.cantidad }}
+            </li>
+        {% empty %}
+            <li>No hay pedidos disponibles.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'CreaPedido' %}">Crear nuevo pedido</a>  
 </div>
 {% endblock contenidoQueCambia %}

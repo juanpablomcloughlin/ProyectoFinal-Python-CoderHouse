@@ -1,9 +1,18 @@
-<h2>Crear/Editar Producto</h2>
-<form method="post">
+{% extends 'padre.html' %}
 
-  {% csrf_token %}
-
-  {{ formulario.as_p }}
+{% block contenidoQueCambia %}
+  <div class="text-center text-black">
+  <h2>Crear/Editar Producto</h2>
   
-  <button type="submit">Guardar</button>
-</form>
+  <form method="post">
+    {% csrf_token %}
+    
+    {{ formulario.as_p }}
+    
+    <button type="submit">Guardar</button>
+  </form>
+
+  <a href="{% url 'ListaProductos' %}">Volver a la lista de productos</a>
+
+</div>
+{% endblock contenidoQueCambia %}

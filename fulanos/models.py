@@ -1,4 +1,5 @@
 from django.db import models
+# from .models import Producto  
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -16,9 +17,6 @@ class Usuario(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
-from django.db import models
-from .models import Producto  # Asegúrate de importar el modelo Producto
-
 class Pedido(models.Model):
     order_number = models.CharField(max_length=20)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)  
@@ -27,4 +25,4 @@ class Pedido(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return f"Pedido {self.order_number} - {self.usuario}"
+        return f"Pedido {self.order_number} - {self.producto.nombre}"

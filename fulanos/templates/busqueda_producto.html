@@ -1,13 +1,17 @@
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
+<div class="text-center text-black">
+
+  <h1>Buscar Producto</h1>
   
-  <form action="{% url 'BuscarProducto' %}" method="get">
-
-    <p>Producto: <input type="text" name="nombre"></p>
-
+  <form method="get" action="{% url 'buscar_producto' %}">
+    
+    {{ formulario.as_p }}
+    
     <button type="submit">Buscar</button>
-
+    
   </form>
   
-{% endblock contenidoQueCambia %}
+</div>
+{% endblock %}

@@ -1,15 +1,15 @@
 {% extends 'padre.html' %}
 
-{% block title %}Crear/Editar Pedido{% endblock %}
-
 {% block contenidoQueCambia %}
 <div class="text-center text-black">
-    <h2>Crear/Editar Pedido</h2>
+    <h1>Crear Usuario</h1>
+
     <form method="post">
         {% csrf_token %}
-        {{ formulario.as_p }}
+        {{ form.as_p }}
         <button type="submit">Guardar</button>
     </form>
-    <a href="{% url 'ListaPedidos' %}">Volver a la lista de pedidos</a>
+
+    <a href="{% url 'ListaUsuarios' %}">Volver a la lista de usuarios</a>
 </div>
 {% endblock contenidoQueCambia %}

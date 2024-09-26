@@ -2,12 +2,13 @@
 
 {% block title %}Lista de Productos{% endblock %}
 
-{% block content %}
-<h2>Lista de Productos</h2>
+{% block contenidoQueCambia %}
+<div class="text-center text-black"><h2>Lista de Productos</h2>
 <ul>
     {% for producto in productos %}
         <li>{{ producto.nombre }} - {{ producto.precio }} - Stock: {{ producto.stock }}</li>
     {% endfor %}
 </ul>
 <a href="{% url 'CreaProducto' %}">Crear nuevo producto</a>
+</div>
 {% endblock %}
