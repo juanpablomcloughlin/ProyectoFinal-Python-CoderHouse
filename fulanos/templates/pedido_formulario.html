@@ -3,13 +3,21 @@
 {% block title %}Crear/Editar Pedido{% endblock %}
 
 {% block contenidoQueCambia %}
-<div class="text-center text-black">
-    <h2>Crear/Editar Pedido</h2>
-    <form method="post">
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Crear/Editar Pedido</h2>
+    
+    <form method="post" class="border p-4 rounded shadow">
         {% csrf_token %}
-        {{ formulario.as_p }}
-        <button type="submit">Guardar</button>
+        <div class="form-group text-center">
+            {{ formulario.as_p|safe }}
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+        </div>
     </form>
-    <a href="{% url 'ListaPedidos' %}">Volver a la lista de pedidos</a>
+    
+    <div class="text-center mt-3">
+        <a href="{% url 'ListaPedidos' %}" class="btn btn-secondary">Volver a la lista de pedidos</a>
+    </div>
 </div>
 {% endblock contenidoQueCambia %}

@@ -1,17 +1,37 @@
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
-  <div class="text-center text-black">
-  <h1>Lista de Usuarios</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Lista de Usuarios</h1>
 
-  <ul>
-    {% for usuario in usuarios %}
-      <li>
-        {{ usuario }}
-      </li>
-    {% endfor %}
-  </ul>
+    <div class="card">
+        <div class="card-body">
+            <ul class="list-group">
+                {% for usuario in usuarios %}
+                    <li class="list-group-item">
+                        {{ usuario }}
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No hay usuarios disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-  <a href="{% url 'CreaUsuario' %}">Crear Usuario</a>
+    <div class="text-center mt-4">
+        <a href="{% url 'CreaUsuario' %}" class="btn btn-primary">Crear Usuario</a>
+    </div>
 </div>
+
+<style>¿
+    .list-group-item {
+        font-size: 1.1rem; 
+        border-radius: 0.5rem; 
+    }
+    
+    .list-group-item:hover {
+        background-color: #f8f9fa; 
+        cursor: pointer; 
+    }
+</style>
 {% endblock contenidoQueCambia %}

@@ -1,17 +1,31 @@
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
-<div class="text-center text-black">
-    <h1>Lista de Pedidos</h1>
-    <ul>
-        {% for pedido in pedidos %}
-            <li>
-                Pedido ID: {{ pedido.id }} - Producto: {{ pedido.producto.nombre }} - Cantidad: {{ pedido.cantidad }}
-            </li>
-        {% empty %}
-            <li>No hay pedidos disponibles.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'CreaPedido' %}">Crear nuevo pedido</a>  
+<div class="container mt-5">
+    <h1 class="text-center text-black mb-4">Lista de Pedidos</h1>
+    
+    <div class="text-center mb-3">
+        <a href="{% url 'CreaPedido' %}" class="btn btn-primary">Crear Nuevo Pedido</a>
+    </div>
+    
+    <div class="row">
+        {% if pedidos %}
+            {% for pedido in pedidos %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Pedido ID: {{ pedido.id }}</h5>
+                            <p class="card-text">Producto: {{ pedido.producto.nombre }}</p>
+                            <p class="card-text">Cantidad: {{ pedido.cantidad }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">No hay pedidos disponibles.</div>
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock contenidoQueCambia %}

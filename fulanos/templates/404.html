@@ -1,0 +1,10 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="error-404">
+    <h1>Error 404: Página no encontrada</h1>
+    <p>Lo sentimos, la página que estás buscando no existe o ha sido movida.</p>
+    <a href="{% url 'inicio' %}">Volver a la página de inicio</a> | 
+    <a href="{% url 'ListaProductos' %}">Ver lista de productos</a>
+</div>
+{% endblock contenidoQueCambia %}

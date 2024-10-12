@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Producto, Usuario, Pedido
 from .forms import UsuarioFormulario, ProductoFormulario, PedidoFormulario, BusquedaProductoFormulario
 from django.views.generic import ListView, CreateView
@@ -32,12 +32,13 @@ def editar_usuario(request, id):
 # Producto
 def crear_producto(request):
     if request.method == 'POST':
-        formulario = ProductoFormulario(request.POST)
+        formulario = ProductoFormulario(request.POST, request.FILES)  
         if formulario.is_valid():
             formulario.save()
-            return redirect('ListaProductos')  
+            return redirect('ListaProductos')
     else:
         formulario = ProductoFormulario()
+    
     return render(request, 'producto_formulario.html', {'formulario': formulario})
 
 def lista_productos(request):
@@ -55,13 +56,24 @@ def editar_producto(request, id):
         formulario = ProductoFormulario(instance=producto)
     return render(request, 'producto_formulario.html', {'formulario': formulario})
 
+def eliminarproducto(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    if request.method == 'POST':
+        producto.delete()
+        return redirect('ListaProductos')  
+    return render(request, 'confirmar_eliminar.html', {'producto': producto})
+
+def detalle_producto(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    return render(request, 'detalle_producto.html', {'producto': producto})
+
 # Pedido
 def crear_pedido(request):
     if request.method == 'POST':
         formulario = PedidoFormulario(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('lista_pedidos')  
+            return redirect('ListaPedidos')  
     else:
         formulario = PedidoFormulario()
     return render(request, 'pedido_formulario.html', {'formulario': formulario})
@@ -107,3 +119,11 @@ def buscar_producto(request):
         productos = Producto.objects.filter(nombre__icontains=nombre_producto)
         return render(request, 'resultado_busqueda.html', {'productos': productos, 'nombre': nombre_producto})
     return render(request, 'busqueda_producto.html', {'formulario': formulario})
+
+#About
+def acerca_de_mi(request):
+    return render(request, 'acerca_de_mi.html')
+
+#404 error
+def error_404_view(request, exception):
+    return render(request, '404.html', status=404)

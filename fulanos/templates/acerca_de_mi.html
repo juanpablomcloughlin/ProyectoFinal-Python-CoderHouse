@@ -1,0 +1,55 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Acerca de Nosotros</h1>
+        <p class="lead">Descubre quiénes somos y nuestra misión en Fulanos Underwear</p>
+    </div>
+
+    <!-- Sección de Introducción -->
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-muted">Somos una tienda online dedicada a ofrecer los mejores productos de alta calidad para nuestros clientes. Este proyecto ha sido desarrollado por un equipo apasionado por la tecnología y el comercio electrónico.</p>
+        </div>
+    </div>
+
+    <!-- Sección del Equipo -->
+    <div class="row my-5">
+        <div class="col-md-6">
+            <h2 class="h3">Nuestro Equipo</h2>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p><strong>Nombre del Creador:</strong> Juan Pablo Mc Loughlin</p>
+                    <p><strong>Descripción:</strong> Juan Pablo es el desarrollador principal de esta tienda online, y es un estudiante apasionado de programación. Este proyecto fue creado como parte de su trabajo final en un curso de Python.</p>
+                    <p><a href="https://www.linkedin.com/in/juan-pablo-mc-loughlin-programacion/" target="_blank" class="btn btn-primary btn-sm">Visitar LinkedIn <i class="bi bi-linkedin"></i></a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección del Proyecto -->
+        <div class="col-md-6">
+            <h2 class="h3">Sobre el Proyecto</h2>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p>El proyecto tiene como objetivo ofrecer una experiencia de e-commerce completa, con funcionalidades de administración de productos, gestión de usuarios, y un sistema de pedidos eficiente.</p>
+                    <p>Esta tienda online está construida con <strong>Django</strong> y está diseñada para ser escalable y fácil de usar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Contacto -->
+    <div class="row mt-5 text-center">
+        <div class="col-md-12">
+            <h2 class="h4">Contacto</h2>
+            <p>Si tienes alguna duda o comentario, no dudes en contactarnos a través de nuestro correo:</p>
+            <p>
+                <a href="mailto:fulanosunderwear@gmail.com" class="btn btn-outline-success btn-lg">
+                    <i class="bi bi-envelope"></i> fulanosunderwear@gmail.com
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}
