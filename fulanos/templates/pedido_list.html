@@ -1,0 +1,39 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container mt-5">
+  <!-- Título principal -->
+  <h1 class="text-center display-4 mb-4">Lista de Pedidos</h1>
+
+  <!-- Botón para crear nuevo pedido -->
+  <div class="text-center mb-4">
+    <a href="{% url 'CreaPedido' %}" class="btn btn-lg btn-primary">Crear Pedido</a>
+  </div>
+
+  <!-- Lista de pedidos -->
+  <ul class="list-group">
+    {% for pedido in pedidos %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <!-- Información del pedido -->
+        <div>
+          <a href="{% url 'DetallePedido' pedido.id %}">
+            <h5 class="mb-1">{{ pedido }}</h5>
+          </a>
+        </div>
+
+        <!-- Botones de acciones -->
+        <div class="btn-group">
+          <!-- Botón Editar -->
+          <a href="{% url 'ActualizaPedido' pedido.pk %}" class="btn btn-warning btn-sm">Editar</a>
+          
+          <!-- Botón Eliminar -->
+          <a href="{% url 'EliminaPedido' pedido.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+        </div>
+      </li>
+    {% empty %}
+      <!-- Mensaje si no hay pedidos -->
+      <li class="list-group-item text-center">No hay pedidos disponibles.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock contenidoQueCambia %}

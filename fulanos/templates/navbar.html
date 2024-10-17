@@ -1,10 +1,49 @@
-<!-- Navigation-->
-<nav class="navbar navbar-light bg-light static-top">
+<!-- Navbar con Bootstrap 5 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
-    <a class="navbar-brand" href="{% url 'ListaProductos' %}">Productos</a>
-    <a class="navbar-brand" href="{% url 'ListaUsuarios' %}">Lista de Usuarios</a>
-    <a class="navbar-brand" href="{% url 'ListaPedidos' %}">Pedidos</a>
-    <a class="navbar-brand" href="{% url 'acerca_de_mi' %}">Acerca de nosotros</a></li>
+    <!-- Logo o nombre de la página -->
+    <a class="navbar-brand" href="{% url 'inicio' %}">Fulanos</a>
+
+    <!-- Botón de colapso para pantallas pequeñas -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido del navbar -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Links de navegación -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'ListaProductos' %}">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'ListaUsuarios' %}">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'ListaPedidos' %}">Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'acerca_de_mi' %}">Acerca de</a>
+        </li>
+      </ul>
+
+      <!-- Formulario de búsqueda en el navbar -->
+      <form class="d-flex" action="{% url 'buscar_producto' %}" method="GET">
+        <input class="form-control me-2" type="search" name="nombre" placeholder="Buscar producto" aria-label="Buscar">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+
+      <!-- Sección de autenticación -->
+      {% if user.is_authenticated %}
+        <div class="d-flex align-items-center ms-3">
+          <p class="mb-0 me-3">Bienvenido, <strong>{{ user.username }}</strong></p>
+          <form action="{% url 'Logout' %}" method="post" class="d-inline">{% csrf_token %}
+            <button class="btn btn-danger" type="submit">Cerrar sesión</button>
+          </form>
+        </div>
+      {% else %}
+      <a class="btn btn-primary" href="{% url 'login' %}">Iniciar Sesión</a>
+      {% endif %}
+    </div>
   </div>
 </nav>

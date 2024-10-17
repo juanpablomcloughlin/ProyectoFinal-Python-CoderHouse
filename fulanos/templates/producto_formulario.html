@@ -2,7 +2,9 @@
 
 {% block contenidoQueCambia %}
   <div class="container mt-5">
-    <h2 class="text-center text-black mb-4">Crear/Editar Producto</h2>
+    <h2 class="text-center text-black mb-4">
+      {% if producto %} Editar Producto {% else %} Crear Producto {% endif %}
+    </h2>
 
     <form method="post" class="border p-4 rounded shadow" enctype="multipart/form-data">  
       {% csrf_token %}
@@ -11,7 +13,9 @@
         {{ formulario.as_p }}
       </div>
       
-      <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+      <button type="submit" class="btn btn-primary btn-block">
+        {% if producto %} Actualizar {% else %} Crear {% endif %}
+      </button>
     </form>
 
     <div class="text-center mt-3">

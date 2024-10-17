@@ -1,0 +1,26 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container mt-5">
+  <div class="card text-center shadow-sm">
+    <div class="card-body">
+      <!-- Título -->
+      <h1 class="card-title display-4 text-danger mb-4">¿Eliminar Pedido?</h1>
+
+      <!-- Texto de confirmación -->
+      <p class="card-text">¿Estás seguro de que deseas eliminar el registro del pedido <strong>{{ pedido.order_number }}</strong>? Esta acción no se puede deshacer.</p>
+
+      <!-- Formulario de confirmación de eliminación -->
+      <form action="{% url 'EliminaPedido' pedido.id %}" method="post">
+        {% csrf_token %}
+        
+        <!-- Botón Confirmar -->
+        <button type="submit" class="btn btn-danger btn-lg">Confirmar</button>
+
+        <!-- Botón Cancelar -->
+        <a href="{% url 'ListaPedidos' %}" class="btn btn-secondary btn-lg ml-3">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock contenidoQueCambia %}

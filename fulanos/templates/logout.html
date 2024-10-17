@@ -1,0 +1,15 @@
+{% extends 'padre.html' %}
+{% load static %} 
+
+{% block contenidoQueCambia %}
+<div class="container mt-5">
+    <div class="text-center text-black">
+        <!-- Título principal estilizado -->
+        <h1 class="display-4 mb-4">Gracias por visitar Fulanos ®. Lo esperamos pronto...</h1>
+        
+        <!-- Botón de acción destacado -->
+        <a href="{% url 'inicio' %}" class="btn btn-primary btn-lg">Volver a inicio</a>
+        <a href="{% url 'ListaProductos' %}" class="btn btn-primary btn-lg">Explorar Productos</a>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}

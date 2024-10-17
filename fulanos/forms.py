@@ -26,3 +26,7 @@ class PedidoFormulario(forms.ModelForm):
 
 class BusquedaProductoFormulario(forms.Form):
     nombre = forms.CharField(label='Nombre del Producto', max_length=100)
+
+class MiFormulario(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control text-center'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control text-center'}))

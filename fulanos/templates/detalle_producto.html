@@ -1,23 +1,34 @@
 {% extends 'padre.html' %}
 
+{% load static %}
+
 {% block contenidoQueCambia %}
-{% for producto in productos %}
-<div class="col-md-4 mb-4">
-    <div class="card">
-        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
-        <div class="card-body">
-            <h5 class="card-title">{{ producto.nombre }}</h5>
-            <p class="card-text">{{ producto.descripcion|slice:":100" }}...</p>
-            <p class="card-text">Precio: ${{ producto.precio }}</p>
-            <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-info">Ver más</a> <!-- Verifica este enlace -->
-            <a href="{% url 'EditarProducto' producto.id %}" class="btn btn-warning">Editar</a>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">{{ producto.nombre }}</h2>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Verifica si el producto tiene imagen -->
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" class="img-fluid rounded shadow" alt="{{ producto.nombre }}">
+            {% else %}
+                <img src="{% static 'images/default.jpg' %}" class="img-fluid rounded shadow" alt="Imagen no disponible">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <div class="card border-light shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Descripción</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <h5 class="card-title">Precio</h5>
+                    <p class="card-text text-success font-weight-bold">Precio: ${{ producto.precio }}</p>
+                    <div class="text-center">
+                        <a href="{% url 'EditarProducto' producto.id %}" class="btn btn-warning">Editar Producto</a>
+                        <a href="{% url 'ListaProductos' %}" class="btn btn-secondary">Volver a la lista</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-{% empty %}
-<div class="col-12">
-    <div class="alert alert-warning" role="alert">No hay productos disponibles.</div>
-</div>
-{% endfor %}
-
-{% endblock contenidoQueCambia %}
+{% endblock %}

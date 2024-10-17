@@ -1,0 +1,23 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Vista en Detalle del Pedido</h1>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mb-0">Detalles del Pedido</h3>
+        </div>
+        <div class="card-body">
+            <h5>Pedido: <span class="font-weight-bold">{{ pedido.order_number }}</span></h5>
+            <h5>Producto: <span class="font-weight-bold">{{ pedido.producto }}</span></h5>
+            <h5>Cantidad: <span class="font-weight-bold">{{ pedido.cantidad }}</span></h5>
+            <h5>Usuario: <span class="font-weight-bold">{{ pedido.usuario }}</span></h5>
+            <h5>Email: <span class="font-weight-bold">{{ pedido.email }}</span></h5>
+        </div>
+        <div class="card-footer text-center">
+            <a href="{% url 'ListaPedidos' %}" class="btn btn-secondary">Volver a la lista de pedidos</a>
+        </div>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}

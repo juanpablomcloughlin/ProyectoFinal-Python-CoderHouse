@@ -1,0 +1,46 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="col-md-6">
+    <div class="card p-5 shadow-lg" style="border-radius: 15px; background-color: #f9f9f9;">
+      <h2 class="text-center mb-4 text-primary">Iniciar Sesión</h2>
+
+      {% if mi_formulario.errors %}
+        <div class="alert alert-danger">
+          <ul>
+            {% for field, errors in mi_formulario.errors.items %}
+              {% for error in errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+
+        <div class="form-group mb-3">
+          <label for="id_username" class="form-label">Nombre de Usuario</label>
+          <input type="text" name="username" id="id_username" class="form-control" value="{{ mi_formulario.username.value|default:'' }}" required>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="id_password" class="form-label">Contraseña</label>
+          <input type="password" name="password" id="id_password" class="form-control" required>
+        </div>
+
+        <div class="d-grid mb-4">
+          <button type="submit" class="btn btn-primary btn-lg shadow-sm">Iniciar Sesión</button>
+        </div>
+      </form>
+
+      <p class="text-center mt-3">
+        ¿No tienes una cuenta? 
+        <a href="{% url 'Registrar' %}" class="text-decoration-none text-primary fw-bold">Regístrate aquí</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock contenidoQueCambia %}

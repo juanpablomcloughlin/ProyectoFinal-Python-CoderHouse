@@ -1,15 +1,35 @@
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
-<div class="text-center text-black">
-<h1>Resultados de búsqueda para "{{ nombre }}"</h1>
-<ul>
-  {% for producto in productos %}
-  <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
-  {% empty %}
-  <li>No se encontraron productos.</li>
-  {% endfor %}
-</ul>
-<a href="{% url 'busqueda_producto' %}">Volver a buscar</a>
+<div class="container mt-5">
+  
+  <!-- Título de la página con el término de búsqueda -->
+  <h1 class="text-center display-4 mb-4">Resultados de búsqueda para "{{ nombre }}"</h1>
+
+  <!-- Lista de productos encontrados -->
+  <div class="row">
+    {% for producto in productos %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <!-- Título del producto con enlace al detalle -->
+        <a href="{% url 'detalle_producto' producto.pk %}" class="text-decoration-none text-dark">
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">Precio: ${{ producto.precio }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <p class="text-center">No se encontraron productos.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Botón para volver a la búsqueda -->
+  <div class="text-center mt-4">
+    <a href="{% url 'busqueda_producto' %}" class="btn btn-secondary">Volver a buscar</a>
+  </div>
 </div>
 {% endblock contenidoQueCambia %}

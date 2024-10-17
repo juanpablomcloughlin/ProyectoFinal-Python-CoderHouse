@@ -12,32 +12,30 @@
     </div>
 
     <div class="row">
-      {% for producto in productos %}
-          <div class="col-md-4 mb-4">
-              <div class="card">
-                  <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
-                  <div class="card-body">
-                      <h5 class="card-title">{{ producto.nombre }}</h5>
-                      <p class="card-text">{{ producto.descripcion|slice:":100" }}...</p>
-                      <p class="card-text">Precio: ${{ producto.precio }}</p>
-                      <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-info">Ver más</a>
-                      <a href="{% url 'EditarProducto' producto.id %}" class="btn btn-warning">Editar</a>
-                      <form action="{% url 'EliminarProducto' producto.id %}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
-                          {% csrf_token %}
-                          <button type="submit" class="btn btn-danger">Eliminar</button>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      {% empty %}
-          <div class="col-12">
-              <div class="alert alert-warning" role="alert">No hay productos disponibles.</div>
-          </div>
-      {% endfor %}
-  </div>
-  
-  
-  </div>
-  
+        {% for producto in productos %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" class="card-img-top" alt="{{ producto.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion|slice:":100" }}{% if producto.descripcion|length > 100 %}...{% endif %}</p>
+                        <p class="card-text">Precio: ${{ producto.precio }}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-info">Ver más</a>
+                            <a href="{% url 'EditarProducto' producto.id %}" class="btn btn-warning">Editar</a>
+                            <form action="{% url 'EliminarProducto' producto.id %}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">No hay productos disponibles.</div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

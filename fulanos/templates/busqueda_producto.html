@@ -1,17 +1,43 @@
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
-<div class="text-center text-black">
+<div class="container mt-5">
+  
+  <!-- Título de la página -->
+  <h1 class="text-center display-4 mb-4">Buscar Producto</h1>
 
-  <h1>Buscar Producto</h1>
-  
-  <form method="get" action="{% url 'buscar_producto' %}">
-    
-    {{ formulario.as_p }}
-    
-    <button type="submit">Buscar</button>
-    
+  <!-- Formulario de búsqueda centrado -->
+  <form method="get" action="{% url 'buscar_producto' %}" class="d-flex justify-content-center mb-4">
+    <div class="form-group me-2">
+      {{ formulario.nombre.label_tag }}
+      {{ formulario.nombre }}
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
   </form>
+
+  <!-- Resultados de la búsqueda (si hay) -->
+  {% if productos %}
+  <h2 class="text-center mb-4">Resultados de la búsqueda</h2>
   
+  <div class="row">
+    {% for producto in productos %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <!-- Título del producto con link al detalle -->
+        <a href="{% url 'detalle_producto' producto.pk %}" class="text-decoration-none text-dark">
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">Descripción: {{ producto.descripcion|truncatewords:20 }}</p>
+            <p class="card-text">Precio: ${{ producto.precio }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  {% else %}
+  <p class="text-center">No se encontraron productos con ese nombre.</p>
+  {% endif %}
 </div>
 {% endblock %}
