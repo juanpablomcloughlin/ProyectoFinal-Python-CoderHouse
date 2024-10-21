@@ -1,8 +1,11 @@
 <!-- Navbar con Bootstrap 5 -->
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <!-- Logo o nombre de la página -->
-    <a class="navbar-brand" href="{% url 'inicio' %}">Fulanos</a>
+    <!-- Logo de la empresa -->
+    <a class="navbar-brand" href="{% url 'inicio' %}">
+      <img src="{% static 'img/Fulanos.jpg' %}" alt="Logo de Fulanos" height="40">
+    </a>
 
     <!-- Botón de colapso para pantallas pequeñas -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,10 +20,10 @@
           <a class="nav-link" href="{% url 'ListaProductos' %}">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'ListaUsuarios' %}">Usuarios</a>
+          <a class="nav-link" href="{% url 'ListaPedidos' %}">Pedidos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'ListaPedidos' %}">Pedidos</a>
+          <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'acerca_de_mi' %}">Acerca de</a>
@@ -35,15 +38,28 @@
 
       <!-- Sección de autenticación -->
       {% if user.is_authenticated %}
-        <div class="d-flex align-items-center ms-3">
-          <p class="mb-0 me-3">Bienvenido, <strong>{{ user.username }}</strong></p>
-          <form action="{% url 'Logout' %}" method="post" class="d-inline">{% csrf_token %}
-            <button class="btn btn-danger" type="submit">Cerrar sesión</button>
-          </form>
-        </div>
-      {% else %}
+      <div class="d-flex align-items-center ms-3">
+        
+        {% with avatar=user.avatar_set.first %}
+          {% if avatar and avatar.imagen %}
+            <img src="{{ avatar.imagen.url }}" height="30px" alt="avatar" class="rounded-circle me-2">
+          {% else %}
+            <img src="{% static 'path/to/default/avatar.png' %}" height="30px" alt="avatar" class="rounded-circle me-2">
+          {% endif %}
+        {% endwith %}
+        
+        <p class="mb-0 me-3">Bienvenido, <strong>{{ user.username }}</strong></p>
+
+        <!-- Enlace al perfil del usuario -->
+        <a class="btn btn-secondary me-2" href="{% url 'EditarPerfil' %}">Perfil</a>
+
+        <form action="{% url 'Logout' %}" method="post" class="d-inline">{% csrf_token %}
+          <button class="btn btn-danger" type="submit">Cerrar sesión</button>
+        </form>
+      </div>
+    {% else %}
       <a class="btn btn-primary" href="{% url 'login' %}">Iniciar Sesión</a>
-      {% endif %}
+    {% endif %}
     </div>
   </div>
 </nav>

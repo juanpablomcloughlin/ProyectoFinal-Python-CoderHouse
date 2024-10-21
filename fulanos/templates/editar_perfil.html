@@ -1,0 +1,61 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container my-5">
+    <!-- Título con estilo moderno -->
+    <div class="text-center mb-4">
+        <h1 class="display-4 text-primary">Editar Perfil</h1>
+        <p class="lead text-muted">Actualiza tu información personal a continuación</p>
+    </div>
+
+    <!-- Mostrar mensajes de éxito -->
+    {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Formulario centrado y estilizado -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4" style="border-radius: 15px; background-color: #f9f9f9;">
+                <h2 class="text-center mb-4 text-primary">Información del Perfil</h2>
+                
+                <!-- Mostrar errores si existen -->
+                {% if mi_formulario.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field, errors in mi_formulario.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                <!-- Formulario -->
+                <form action="{% url 'EditarPerfil' %}" method="post" enctype="multipart/form-data"> <!-- Agregado enctype -->
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ mi_formulario.as_p }}
+                    </div>
+
+                    <!-- Campo para cargar el avatar -->
+                    <div class="mb-3">
+                        <label for="avatar" class="form-label">Cargar Avatar</label>
+                        <input type="file" name="avatar" class="form-control" id="avatar" accept="image/*">
+                    </div>
+
+                    <!-- Botón destacado -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg shadow-sm">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}

@@ -18,11 +18,14 @@ from .views import (
     PedidoDelete,
     lista_usuarios, 
     crear_usuario,
+    editar_perfil,
+    agregar_avatar,
     busqueda_producto,
     buscar_producto,
     acerca_de_mi,
     register,
     login_view,
+    contacto,
 )
 
 handler404 = 'django.views.defaults.page_not_found'
@@ -44,13 +47,18 @@ urlpatterns = [
 
     path('usuarios/', lista_usuarios, name='ListaUsuarios'),
     path('usuarios/crear/', crear_usuario, name='CreaUsuario'),
-    path('busqueda/', busqueda_producto, name='busqueda_producto'),
+    path('editar-perfil/', editar_perfil, name='EditarPerfil'),
+    path('agregar-avatar/', agregar_avatar, name='AgregarAvatar'),
+    path('no_autorizado/', views.no_autorizado, name='no_autorizado'),
     path('login/', login_view, name='login'),  
     path('registrar/', register, name='Registrar'),
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='Logout'),
 
     path('buscar/', buscar_producto, name='buscar_producto'),
+    path('busqueda/', busqueda_producto, name='busqueda_producto'),
     path('about/', acerca_de_mi, name='acerca_de_mi'),
+    path('contacto/', contacto, name='contacto'),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

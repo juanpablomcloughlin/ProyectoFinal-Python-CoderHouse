@@ -8,9 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5#69yfv%6a$8szorhzgn5cc*#cm)rm!5$b9k3pytcjls$pk$ya'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Cambia a False en producción
+DEBUG = True  # Cambia a True en desarrollo.
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# Allow all hosts during development, restrict in production
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'tu-dominio.com']  # Agrega aquí tu dominio o IP pública en producción.
 
 # Application definition
 INSTALLED_APPS = [
@@ -20,7 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'fulanos',  # Asegúrate de que esta app esté creada y registrada correctamente
+    'fulanos',  # Asegúrate de que esta app esté correctamente registrada.
 ]
 
 MIDDLEWARE = [
@@ -38,7 +39,7 @@ ROOT_URLCONF = 'MiProyectoCoder.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'fulanos', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'fulanos', 'templates')],  # O cambia a 'templates' global.
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,20 +79,28 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'en-us'  # Puedes cambiar esto a 'es-es' si es un proyecto en español.
+TIME_ZONE = 'UTC'  # O cambia a tu zona horaria, como 'America/Argentina/Buenos_Aires'.
 USE_I18N = True
 USE_TZ = True
 
-# Static and media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
-
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+
+# En desarrollo, usas archivos estáticos desde la carpeta 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Asegúrate de que esta carpeta exista y tenga tus archivos estáticos.
+]
+
+# En producción, usa el comando collectstatic para recopilar todos los archivos en STATIC_ROOT.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Donde Django recopilará los archivos estáticos.
+
+# Media files (subidos por los usuarios)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Carpeta donde se almacenarán los archivos subidos.
+
+# Redirección para usuarios no autenticados
+LOGIN_URL = '/fulanos/login/'  # Ajusta según la ruta de tu vista de login.
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-LOGIN_URL= '/fulanos/login/'

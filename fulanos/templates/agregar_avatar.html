@@ -1,0 +1,20 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+  
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Agregar Avatar</h2>
+    
+    <form action="{% url 'AgregarAvatar' %}" enctype="multipart/form-data" method="post" class="border p-4 rounded shadow-sm bg-light">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        {{ mi_formulario.as_p }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Agregar</button>
+    </form>
+  </div>
+
+{% endblock contenidoQueCambia %}
+ 

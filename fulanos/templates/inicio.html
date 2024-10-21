@@ -1,16 +1,32 @@
 {% extends 'padre.html' %}
-{% load static %} <!-- Asegúrate de tener esta línea aquí -->
+{% load static %} 
 
 {% block contenidoQueCambia %}
 <div class="container mt-5">
     <div class="text-center text-black">
         <!-- Título principal estilizado -->
         <h1 class="display-4 mb-4">Bienvenido a Nuestra Página</h1>
-        
+
+        <!-- Mostrar mensajes de éxito -->
+        {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <h3 class="mb-4">{{ mensaje }}</h3>
+        
+        <!-- Botón de inicio de sesión solo si el usuario no está autenticado -->
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg mb-3">Iniciar Sesión</a>
+        {% endif %}
 
         <!-- Botón de acción destacado -->
-        <a href="{% url 'ListaProductos' %}" class="btn btn-primary btn-lg">Explorar Productos</a>
+        <a href="{% url 'ListaProductos' %}" class="btn btn-primary btn-lg mb-3">Explorar Productos</a>
     </div>
 </div>
 {% endblock contenidoQueCambia %}

@@ -1,0 +1,18 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <!-- Ícono de advertencia para un toque visual -->
+        <div class="icon" style="font-size: 80px; color: #e74c3c; margin-bottom: 20px;">🚫</div>
+
+        <h1 class="text-danger" style="font-size: 3rem; font-weight: bold;">Acceso Denegado</h1>
+        <p style="font-size: 1.2rem; color: #666;">Lo sentimos, solo los administradores tienen acceso a esta acción.</p>
+        
+        <!-- Botón estilizado -->
+        <a href="{% url 'ListaProductos' %}" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.1rem; font-weight: bold;">
+            Volver a la tienda
+        </a>
+    </div>
+</div>
+{% endblock contenidoQueCambia %}

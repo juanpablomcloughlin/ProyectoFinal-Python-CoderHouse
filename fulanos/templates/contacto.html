@@ -1,0 +1,38 @@
+{% extends 'padre.html' %}
+
+{% block contenidoQueCambia %}
+<div class="container mt-5">
+    <h2 class="text-center">Contacto</h2>
+
+    {% if messages %}
+        <div class="alert alert-success text-center">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.nombre.label_tag }}
+            {{ form.nombre }} 
+        </div>
+        
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }} 
+        </div>
+        
+        <div class="form-group">
+            {{ form.mensaje.label_tag }}
+            {{ form.mensaje }} 
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+    </form>
+</div>
+
+{% endblock contenidoQueCambia %}
+

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -28,3 +29,10 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f"Pedido {self.order_number} - {self.producto.nombre}"
+
+class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares', blank=True, null=True)
+
+    def __str__(self):
+        return f"Avatar de {self.user.username}"
