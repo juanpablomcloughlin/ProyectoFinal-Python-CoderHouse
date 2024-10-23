@@ -31,7 +31,7 @@ Copiar código
 http://127.0.0.1:8000/admin
 
 🎥 Video Demostrativo
-El video demostrativo de la aplicación se encuentra en la carpeta principal del proyecto bajo el nombre: "Fulanos. Video. PF McLoughlin.avi"
+El video demostrativo de la aplicación se puede encontrar en el siguiente enlace https://drive.google.com/file/d/16ixR5NcmzBCscRNlemvxIDENqHAWvC24/view?usp=sharing
 
 🧪 Casos de Prueba
 Los casos de prueba documentados se encuentran en el archivo "Casos de prueba. PF.xlsx" en la carpeta raíz del proyecto.
