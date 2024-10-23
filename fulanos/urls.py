@@ -5,38 +5,14 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
 from . import views
-from .views import (
-    inicio,
-    lista_productos,
-    crear_producto,
-    editar_producto,
-    eliminarproducto,
-    PedidoList,
-    PedidoDetail,
-    PedidoCreate,
-    PedidoUpdate,
-    PedidoDelete,
-    lista_usuarios, 
-    crear_usuario,
-    editar_perfil,
-    agregar_avatar,
-    busqueda_producto,
-    buscar_producto,
-    acerca_de_mi,
-    register,
-    login_view,
-    contacto,
-)
-
-handler404 = 'django.views.defaults.page_not_found'
 
 urlpatterns = [
-    path('', inicio, name='inicio'),
-
-    path('productos/', lista_productos, name='ListaProductos'),
-    path('productos/crear/', crear_producto, name='CreaProducto'),
-    path('productos/editar/<int:id>/', editar_producto, name='EditarProducto'),
-    path('productos/eliminar/<int:id>/', eliminarproducto, name='EliminarProducto'),  
+    path('', views.inicio, name='inicio'),
+    
+    path('productos/', views.lista_productos, name='ListaProductos'),
+    path('productos/crear/', views.crear_producto, name='CreaProducto'),
+    path('productos/editar/<int:id>/', views.editar_producto, name='EditarProducto'),
+    path('productos/eliminar/<int:id>/', views.eliminarproducto, name='EliminarProducto'),
     path('detalle_producto/<int:id>/', views.detalle_producto, name='detalle_producto'),
 
     path('lista-pedidos/', views.PedidoList.as_view(), name='ListaPedidos'),
@@ -45,21 +21,17 @@ urlpatterns = [
     path('actualiza-pedido/<int:pk>/', views.PedidoUpdate.as_view(), name='ActualizaPedido'),
     path('elimina-pedido/<int:pk>/', views.PedidoDelete.as_view(), name='EliminaPedido'),
 
-    path('usuarios/', lista_usuarios, name='ListaUsuarios'),
-    path('usuarios/crear/', crear_usuario, name='CreaUsuario'),
-    path('editar-perfil/', editar_perfil, name='EditarPerfil'),
-    path('agregar-avatar/', agregar_avatar, name='AgregarAvatar'),
+    path('usuarios/', views.lista_usuarios, name='ListaUsuarios'),
+    path('usuarios/crear/', views.crear_usuario, name='CreaUsuario'),
+    path('editar-perfil/', views.editar_perfil, name='EditarPerfil'),
+    path('agregar-avatar/', views.agregar_avatar, name='AgregarAvatar'),
     path('no_autorizado/', views.no_autorizado, name='no_autorizado'),
-    path('login/', login_view, name='login'),  
-    path('registrar/', register, name='Registrar'),
+    path('login/', views.login_view, name='login'),
+    path('registrar/', views.register, name='registrar'),
     path('logout/', LogoutView.as_view(template_name='logout.html'), name='Logout'),
 
-    path('buscar/', buscar_producto, name='buscar_producto'),
-    path('busqueda/', busqueda_producto, name='busqueda_producto'),
-    path('about/', acerca_de_mi, name='acerca_de_mi'),
-    path('contacto/', contacto, name='contacto'),
-
+    path('buscar/', views.buscar_producto, name='buscar_producto'),
+    path('busqueda/', views.busqueda_producto, name='busqueda_producto'),
+    path('about/', views.acerca_de_mi, name='acerca_de_mi'),
+    path('contacto/', views.contacto, name='contacto'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

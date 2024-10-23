@@ -8,7 +8,6 @@
     
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <!-- Verifica si el producto tiene imagen -->
             {% if producto.imagen %}
                 <img src="{{ producto.imagen.url }}" class="img-fluid rounded shadow" alt="{{ producto.nombre }}">
             {% else %}

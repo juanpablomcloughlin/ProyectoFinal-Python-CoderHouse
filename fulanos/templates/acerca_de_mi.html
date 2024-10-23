@@ -1,6 +1,8 @@
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
+{% load static %}
+
 <div class="container py-5">
     <div class="text-center mb-5">
         <h1 class="display-4">Acerca de Nosotros</h1>
@@ -9,31 +11,43 @@
 
     <!-- Sección de Introducción -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
             <p class="text-muted">Somos una tienda online dedicada a ofrecer los mejores productos de alta calidad para nuestros clientes. Este proyecto ha sido desarrollado por un equipo apasionado por la tecnología y el comercio electrónico.</p>
         </div>
     </div>
 
-    <!-- Sección del Equipo -->
+    <!-- Sección del Equipo y Proyecto -->
     <div class="row my-5">
-        <div class="col-md-6">
-            <h2 class="h3">Nuestro Equipo</h2>
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <p><strong>Nombre del Creador:</strong> Juan Pablo Mc Loughlin</p>
-                    <p><strong>Descripción:</strong> Juan Pablo es el desarrollador principal de esta tienda online, y es un estudiante apasionado de programación. Este proyecto fue creado como parte de su trabajo final en un curso de Python.</p>
-                    <p><a href="https://www.linkedin.com/in/juan-pablo-mc-loughlin-programacion/" target="_blank" class="btn btn-primary btn-sm">Visitar LinkedIn <i class="bi bi-linkedin"></i></a></p>
+
+        <!-- Tarjeta del Equipo -->
+        <div class="col-md-6 mb-4">
+            <h2 class="h3 text-center mb-4">Nuestro Equipo</h2>
+            <div class="card shadow-lg" style="border-radius: 15px;">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><strong>Juan Pablo Mc Loughlin</strong></h5>
+                    <p class="card-text">Desarrollador principal de Fulanos Underwear. Apasionado por la programación, creó este proyecto como parte de su trabajo final en un curso de Python.</p>
+                    <p>
+                        <!-- Botón de LinkedIn -->
+                        <a href="https://www.linkedin.com/in/juan-pablo-mc-loughlin-programacion/" target="_blank" class="btn btn-primary btn-lg mb-2">
+                            <i class="bi bi-linkedin"></i> LinkedIn
+                        </a>
+                        
+                        <!-- Botón de GitHub -->
+                        <a href="https://github.com/juanpablomcloughlin" target="_blank" class="btn btn-primary btn-lg mb-2">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Sección del Proyecto -->
+        <!-- Tarjeta del Proyecto -->
         <div class="col-md-6">
-            <h2 class="h3">Sobre el Proyecto</h2>
-            <div class="card shadow-sm">
+            <h2 class="h3 text-center mb-4">Sobre el Proyecto</h2>
+            <div class="card shadow-lg" style="border-radius: 15px;">
                 <div class="card-body">
                     <p>El proyecto tiene como objetivo ofrecer una experiencia de e-commerce completa, con funcionalidades de administración de productos, gestión de usuarios, y un sistema de pedidos eficiente.</p>
-                    <p>Esta tienda online está construida con <strong>Django</strong> y está diseñada para ser escalable y fácil de usar.</p>
+                    <p>Construido con <strong>Django</strong>, este sitio está diseñado para ser escalable y fácil de usar, permitiendo futuras expansiones y mejoras en la experiencia de compra.</p>
                 </div>
             </div>
         </div>

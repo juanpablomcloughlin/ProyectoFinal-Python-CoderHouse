@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Producto, Usuario, Pedido, Avatar
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UsuarioFormulario, ProductoFormulario, BusquedaProductoFormulario, ContactForm, UserEditForm, AvatarFormulario
+from .forms import ProductoFormulario, BusquedaProductoFormulario, ContactForm, UserEditForm, AvatarFormulario
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
-from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import send_mail
+from django.urls import reverse_lazy
+from django.contrib import messages
+
 
 # Usuario
 def crear_usuario(request):
@@ -65,7 +68,6 @@ def editar_perfil(request):
     avatar_url = None
     usuario = request.user
 
-    # Obtener el avatar existente si lo hay
     try:
         avatar = Avatar.objects.get(user=usuario)
         avatar_url = avatar.imagen.url if avatar.imagen else None
@@ -73,23 +75,20 @@ def editar_perfil(request):
         avatar = None
 
     if request.method == 'POST':
-        # Aquí se debe pasar request.POST al formulario
-        mi_formulario = UserEditForm(request.POST, instance=usuario)  # Asegúrate de pasar request.POST
-
-        # Manejo de la carga del avatar
+        mi_formulario = UserEditForm(request.POST, instance=usuario) 
         if request.FILES.get('avatar'):
             if avatar:
-                avatar.imagen = request.FILES['avatar']  # Actualizar imagen existente
+                avatar.imagen = request.FILES['avatar']  
             else:
-                avatar = Avatar(user=usuario, imagen=request.FILES['avatar'])  # Crear nuevo avatar
-            avatar.save()  # Guardar el avatar
+                avatar = Avatar(user=usuario, imagen=request.FILES['avatar']) 
+            avatar.save() 
 
-        if mi_formulario.is_valid():  # Asegúrate de validar el formulario
-            mi_formulario.save()  # Guardar los cambios del formulario
-            messages.success(request, 'Los datos han sido actualizados con éxito.')  # Añadir mensaje de éxito
-            return redirect('inicio')  # Redirigir a la página de inicio
+        if mi_formulario.is_valid(): 
+            mi_formulario.save()  
+            messages.success(request, 'Los datos han sido actualizados con éxito.')  
+            return redirect('inicio') 
     else:
-        mi_formulario = UserEditForm(instance=usuario)  # Formulario para GET
+        mi_formulario = UserEditForm(instance=usuario)  
 
     return render(request, 'editar_perfil.html', {
         'mi_formulario': mi_formulario,
@@ -131,25 +130,21 @@ def login_view(req):
         return render(req, "login.html", { "mi_formulario": mi_formulario })
 
 def register(req):
+    if req.method == 'POST':
+        mi_formulario = UserCreationForm(req.POST)
+        if mi_formulario.is_valid():
+            data = mi_formulario.cleaned_data
+            usuario = data['username']
+            mi_formulario.save()
 
-  if req.method == 'POST':
-
-    mi_formulario= UserCreationForm(req.POST)
-    if mi_formulario.is_valid():
-
-      data = mi_formulario.cleaned_data
-      usuario = data['username']
-      mi_formulario.save()
-
-      return render(req, "inicio.html", { "mensaje": f"Usuario {usuario} creado exitosamente!"})
-
+            messages.success(req, f"Usuario {usuario} creado exitosamente. ¡Ya puedes iniciar sesión!")
+            return redirect('inicio')
+        else:
+            print(mi_formulario.errors) 
+            return render(req, "registro.html", { "mi_formulario": mi_formulario })        
     else:
-      return render(req, "registro.html", { "mi_formulario": mi_formulario })    
-
-  else:
-
-    mi_formulario = UserCreationForm()
-    return render(req, "registro.html", { "mi_formulario": mi_formulario })   
+        mi_formulario = UserCreationForm()
+        return render(req, "registro.html", { "mi_formulario": mi_formulario })
 
 def logout_view(request):
     logout(request)
@@ -159,7 +154,7 @@ def logout_view(request):
 @login_required
 def crear_producto(request):
     if not request.user.is_staff:
-        return redirect('no_autorizado')  # Redirige a la página personalizada
+        return redirect('no_autorizado')  
 
     if request.method == 'POST':
         formulario = ProductoFormulario(request.POST, request.FILES)
@@ -232,8 +227,12 @@ class PedidoDetail(DetailView):
 class PedidoCreate(CreateView):
     model = Pedido
     template_name = 'pedido_create.html'
-    fields = ['order_number', 'producto', 'cantidad', 'usuario', 'email']  
-    success_url = '/fulanos'
+    fields = ['order_number', 'producto', 'cantidad', 'email']  
+    success_url = reverse_lazy('ListaPedidos') 
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user  
+        return super().form_valid(form)
 
 class PedidoUpdate(UpdateView):
     model = Pedido
@@ -286,6 +285,6 @@ def contacto(request):
 
     return render(request, 'contacto.html', {'form': form})
 
-#404 error
-def error_404_view(request, exception):
+#404
+def handler404(request, exception):
     return render(request, '404.html', status=404)

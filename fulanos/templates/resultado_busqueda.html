@@ -3,15 +3,12 @@
 {% block contenidoQueCambia %}
 <div class="container mt-5">
   
-  <!-- Título de la página con el término de búsqueda -->
   <h1 class="text-center display-4 mb-4">Resultados de búsqueda para "{{ nombre }}"</h1>
 
-  <!-- Lista de productos encontrados -->
   <div class="row">
     {% for producto in productos %}
     <div class="col-md-4 mb-4">
       <div class="card h-100">
-        <!-- Título del producto con enlace al detalle -->
         <a href="{% url 'detalle_producto' producto.pk %}" class="text-decoration-none text-dark">
           <div class="card-body">
             <h5 class="card-title">{{ producto.nombre }}</h5>
@@ -27,7 +24,6 @@
     {% endfor %}
   </div>
 
-  <!-- Botón para volver a la búsqueda -->
   <div class="text-center mt-4">
     <a href="{% url 'busqueda_producto' %}" class="btn btn-secondary">Volver a buscar</a>
   </div>

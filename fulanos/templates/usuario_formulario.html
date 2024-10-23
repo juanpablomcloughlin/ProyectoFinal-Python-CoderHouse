@@ -2,19 +2,16 @@
 
 {% block contenidoQueCambia %}
 <div class="container my-5">
-    <!-- Título principal estilizado -->
     <div class="text-center mb-4">
         <h1 class="display-4 text-primary">Crear/Editar Cliente</h1>
         <p class="lead text-muted">Complete el formulario a continuación para agregar o modificar un cliente</p>
     </div>
 
-    <!-- Formulario con estilos y diseño centrado -->
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg p-4" style="border-radius: 10px; background-color: #f9f9f9;">
                 <h2 class="text-center mb-4 text-primary">Datos del Cliente</h2>
                 
-                <!-- Mostrar mensajes de error si existen -->
                 {% if formulario.errors %}
                     <div class="alert alert-danger">
                         <ul>
@@ -27,7 +24,6 @@
                     </div>
                 {% endif %}
                 
-                <!-- Formulario sin add_class -->
                 <form method="post" class="form">
                     {% csrf_token %}
                     
@@ -46,7 +42,6 @@
                         <input type="password" id="{{ formulario.password2.id_for_label }}" name="{{ formulario.password2.name }}" class="form-control" required>
                     </div>
 
-                    <!-- Botón con diseño moderno -->
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg shadow-sm">Guardar Cliente</button>
                     </div>

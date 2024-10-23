@@ -22,13 +22,13 @@ class Usuario(models.Model):
 
 class Pedido(models.Model):
     order_number = models.CharField(max_length=20)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)  
-    cantidad = models.IntegerField()  
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)  
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField()
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField()
 
     def __str__(self):
-        return f"Pedido {self.order_number} - {self.producto.nombre}"
+        return self.order_number
 
 class Avatar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
